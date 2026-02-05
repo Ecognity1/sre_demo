@@ -1,0 +1,7 @@
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\MyFirstAzureWebApp.exe
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\appsettings.Development.json
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\appsettings.json
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\MyFirstAzureWebApp.dll
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\MyFirstAzureWebApp.deps.json
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\MyFirstAzureWebApp.runtimeconfig.json
+C:\Github\sample_sre\MyFirstAzureWebApp\publish\MyFirstAzureWebApp.pdb
