@@ -62,3 +62,8 @@ C:\Github\sample_sre\sre_demo\obj\Release\net8.0\refint\MyFirstAzureWebApp.dll
 C:\Github\sample_sre\sre_demo\obj\Release\net8.0\MyFirstAzureWebApp.pdb
 C:\Github\sample_sre\sre_demo\obj\Release\net8.0\MyFirstAzureWebApp.genruntimeconfig.cache
 C:\Github\sample_sre\sre_demo\obj\Release\net8.0\ref\MyFirstAzureWebApp.dll
+C:\Github\sample_sre\sre_demo\bin\Release\net8.0\publish\publish\web.config
+C:\Github\sample_sre\sre_demo\bin\Release\net8.0\publish\publish\appsettings.Development.json
+C:\Github\sample_sre\sre_demo\bin\Release\net8.0\publish\publish\appsettings.json
+C:\Github\sample_sre\sre_demo\bin\Release\net8.0\publish\publish\MyFirstAzureWebApp.deps.json
+C:\Github\sample_sre\sre_demo\bin\Release\net8.0\publish\publish\MyFirstAzureWebApp.runtimeconfig.json
