@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bdU+tKF6Q6ia0fnJvJThHkqvIGvdWx3hCvyujzJbOIK9gqxzqicdeiVb09XlTCxf1HeAscr+H27CqYMfwWWGww==",
+  "dgSpecHash": "bfYHURW6Aeg=",
   "success": true,
-  "projectFilePath": "C:\\Github\\sample_sre\\sre_demo\\MyFirstAzureWebApp.csproj",
+  "projectFilePath": "/home/runner/work/sre_demo/sre_demo/MyFirstAzureWebApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

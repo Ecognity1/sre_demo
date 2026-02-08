@@ -43,27 +43,23 @@ string connectionString =
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+// ✅ FIXED: Use IHttpClientFactory for proper HTTP client management
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 
 // =======================================================
-// ❌ PERFORMANCE ISSUE — Global latency middleware
-// Every request delayed by 5 seconds
-// Site will feel VERY slow
+// ✅ FIXED: Removed global latency middleware
+// Previous issue: Every request delayed by 5 seconds
 // =======================================================
-app.Use(async (context, next) =>
-{
-    Thread.Sleep(5000); // blocking thread (very bad practice)
-    await next();
-});
+// Performance issue fixed: Removed blocking 5-second delay
 
 
 // =======================================================
-// ❌ RESOURCE MISUSE — HttpClient created manually
-// Should use IHttpClientFactory instead
-// Can cause socket exhaustion
+// ✅ FIXED: Removed manual HttpClient instantiation
+// Now using IHttpClientFactory via dependency injection
 // =======================================================
-var httpClient = new HttpClient();
 
 
 // =======================================================
@@ -81,30 +77,35 @@ app.UseAntiforgery();
 
 
 // =======================================================
-// ❌ MULTIPLE PROBLEMS ENDPOINT
-// - Blocking async (.Result)
-// - Swallowed exceptions
-// - Extra sleep
-// - No logging
+// ✅ FIXED: Healthcheck endpoint
+// - Now properly async (no blocking)
+// - Uses IHttpClientFactory
+// - Removed unnecessary delays
+// - Proper error handling with logging
 // =======================================================
-app.MapGet("/healthcheck", () =>
+app.MapGet("/healthcheck", async (IHttpClientFactory httpClientFactory, ILogger<Program> logger) =>
 {
     try
     {
-        // BAD: blocks thread pool
-        var result = httpClient
-            .GetAsync("https://www.google.com")
-            .Result;
-
-        // BAD: more delay
-        Thread.Sleep(3000);
-
-        return Results.Ok("Healthy");
+        var httpClient = httpClientFactory.CreateClient();
+        httpClient.Timeout = TimeSpan.FromSeconds(5);
+        
+        var response = await httpClient.GetAsync("https://www.google.com");
+        
+        if (response.IsSuccessStatusCode)
+        {
+            return Results.Ok(new { status = "Healthy", timestamp = DateTime.UtcNow });
+        }
+        else
+        {
+            logger.LogWarning("Healthcheck: External dependency returned status {StatusCode}", response.StatusCode);
+            return Results.Ok(new { status = "Degraded", timestamp = DateTime.UtcNow });
+        }
     }
-    catch (Exception)
+    catch (Exception ex)
     {
-        // BAD: completely ignored
-        return Results.Ok("Still Healthy");
+        logger.LogError(ex, "Healthcheck: Failed to reach external dependency");
+        return Results.Ok(new { status = "Degraded", error = "External dependency unreachable", timestamp = DateTime.UtcNow });
     }
 });
 
